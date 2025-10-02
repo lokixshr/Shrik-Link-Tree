@@ -1,10 +1,21 @@
-import { Github, Linkedin, Mail, MessageCircle } from "lucide-react";
+import { Github, Linkedin, MessageCircle } from "lucide-react";
 import logo from "@/assets/shrik-logo.png";
 import AnimatedBackground from "@/components/AnimatedBackground";
 import RippleEffect from "@/components/RippleEffect";
 import SocialLink from "@/components/SocialLink";
+import { useToast } from "@/components/ui/use-toast";
 
 const Index = () => {
+  const { toast } = useToast();
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText("shrik.devs@gmail.com");
+      toast({ title: "Email copied", description: "shrik.devs@gmail.com" });
+    } catch (_) {
+      toast({ title: "Couldn't copy email", description: "Select and copy manually." });
+    }
+  };
+
   return (
     <main className="min-h-screen relative overflow-hidden">
       <AnimatedBackground />
@@ -68,11 +79,7 @@ const Index = () => {
               label="Reddit"
             />
             
-            <SocialLink
-              href="mailto:shrik.devs@gmail.com?subject=Connecting%20with%20Shrik&body=Hello%20Shrik%20Team,%0D%0A%0D%0AI%20would%20like%20to%20connect%20with%20you.%0D%0A%0D%0ABest%20regards,"
-              icon={<Mail size={40} strokeWidth={1.5} />}
-              label="Gmail"
-            />
+            
             
             <SocialLink
               href="https://www.instagram.com/shrik.devs/"
@@ -115,6 +122,23 @@ const Index = () => {
               label="X"
             />
             
+          </div>
+
+          {/* Email Fallback */}
+          <div className="mt-6 flex items-center justify-center gap-3 text-sm text-foreground/70">
+            <span>Email us:</span>
+            <a
+              href="mailto:shrik.devs@gmail.com?subject=Connecting%20with%20Shrik&body=Hello%20Shrik%20Team,%0D%0A%0D%0AI%20would%20like%20to%20connect%20with%20you.%0D%0A%0D%0ABest%20regards,"
+              className="underline hover:text-foreground"
+            >
+              shrik.devs@gmail.com
+            </a>
+            <button
+              onClick={copyEmail}
+              className="px-2 py-1 rounded border border-foreground/20 hover:border-foreground/40 transition-colors"
+            >
+              Copy email
+            </button>
           </div>
         </div>
 
